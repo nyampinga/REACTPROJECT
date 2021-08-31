@@ -1,14 +1,18 @@
 import React from "react";
 
-import { Form, Input, Button, Checkbox } from 'antd';
+import { Form, Input, Button, Checkbox,Col,Row } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
-
+import { Link } from "react-router-dom";
 const SignIn = () => {
   const onFinish = (values) => {
     console.log('Received values of form: ', values);
   };
 
   return (
+    <div style={{ 
+      width: 700,
+      padding: 30}}>
+
     <Form
       name="normal_login"
       className="login-form"
@@ -17,6 +21,8 @@ const SignIn = () => {
       }}
       onFinish={onFinish}
     >
+      <Row >
+          <Col md="4">
       <Form.Item
         name="username"
         rules={[
@@ -57,9 +63,12 @@ const SignIn = () => {
         <Button type="primary" htmlType="submit" className="login-form-button">
           Log in
         </Button>
-        Or <a href="">register now!</a>
+        Or <Link to="/signup/">Register Now!</Link>
       </Form.Item>
+      </Col>
+      </Row>
     </Form>
+    </div>
   );
 };
 export default SignIn;
