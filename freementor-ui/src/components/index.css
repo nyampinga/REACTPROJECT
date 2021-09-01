@@ -32,3 +32,12 @@
 .header{
     margin-top: -150px;
 }
+.footer{
+  margin-top: 700px;
+  padding: 1rem;
+  background-color:#40a9ff;
+  position: relative;
+  left: 0;
+  height: 200px;
+  
+}

@@ -5,7 +5,6 @@ import "./index.css";
 
 import {Menu,Modal,Input} from "antd";
 import { LogoutOutlined,CaretRightOutlined,AudioOutlined,HomeOutlined,LoginOutlined,DashboardOutlined,ContactsOutlined} from '@ant-design/icons';
-import "./index.css";
 
 import 'antd/dist/antd.css';
 import SignIn from "./signin";
@@ -79,7 +78,7 @@ const [isModalVisible, setIsModalVisible] = useState(false);
     size="large"
     suffix={suffix}
     onSearch={onSearch}
-   style={{color:"#40a9ff",width:"400px",marginLeft:"950px",padding:"0px"}}
+   style={{color:"#40a9ff",width:"400px",marginLeft:"930px",padding:"0px"}}
   />
       
         <Menu style={{height: 1000,marginTop:"-0px"}}
