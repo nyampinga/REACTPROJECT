@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import "./index.css";
 
 import {Menu,Modal,Input} from "antd";
-import { LogoutOutlined,CaretRightOutlined,AudioOutlined,HomeOutlined,LoginOutlined,DashboardOutlined,ContactsOutlined} from '@ant-design/icons';
+import { UserOutlined,LogoutOutlined,CaretRightOutlined,AudioOutlined,HomeOutlined,LoginOutlined,DashboardOutlined,ContactsOutlined} from '@ant-design/icons';
 
 import 'antd/dist/antd.css';
 import SignIn from "./signin";
@@ -104,6 +104,12 @@ const [isModalVisible, setIsModalVisible] = useState(false);
           </SubMenu>
          <Menu.Item key="contact" icon={<ContactsOutlined />}>
          <Link to="/contact">Contact Us</Link>
+          </Menu.Item>
+          <Menu.Item key="mentor" icon={<ContactsOutlined />}>
+         <Link to="/contact">All Mentors</Link>
+          </Menu.Item>
+          <Menu.Item key="user" icon={<UserOutlined />}>
+         <Link to="/allusers">All Users</Link>
           </Menu.Item>
           <SubMenu key="register" icon={<CaretRightOutlined />} title="Register Here">
             <Menu.Item key="signin" onClick={showModal} icon={<LoginOutlined />} >Sign IN</Menu.Item>

@@ -6,11 +6,11 @@ import foto1 from "../assets/foto1.jpg";
 import {  Image, Card } from "antd";
 const About = () => {
   return (
-    <Card className="about-container">
+    <Card className="about-container"style={{marginTop:"-1000px",height:"1000px",width:"1040px",marginLeft:"300px"}} >
       <h1 className="nav-title-style" style={{textAlign:"center"}}>About FreeMentor</h1>
       <div className="nav-line-style"></div>
 
-      <h4 style={{textAlign:"center",height:"100px",width:"300px",marginLeft:"500px"}}>
+      <h4 style={{textAlign:"center",height:"100px",width:"300px",marginLeft:"300px"}}>
         {" "}
         I am software Developer, have been working with web development since
         2016, the period during which I have worked in different environments,
@@ -20,7 +20,7 @@ const About = () => {
         cool digital experiences.
       </h4>
 
-      <div className="about-grid-style" style={{marginLeft:"500px",marginTop:"150px"}}>
+      <div className="about-grid-style" style={{marginLeft:"300px",marginTop:"150px"}}>
         <Image.PreviewGroup className="meAbout-style">
           <Image width={300} src={foto1} className="meAbout-style" />
         </Image.PreviewGroup>

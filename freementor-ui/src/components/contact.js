@@ -12,16 +12,16 @@ import {
 import { Image, Card } from "antd";
 const Contact = () => {
   return (
-    <Card className="about-container">
+    <Card className="about-container" style={{marginTop:"-1000px",height:"1000px",width:"1040px",marginLeft:"300px"}}>
       <h1 className="nav-title-style" style={{textAlign:"center"}}>Contact Us</h1>
       <div className="nav-line-style"></div>
 
       
-      <div className="about-grid-style" style={{marginLeft:"500px"}}>
+      <div className="about-grid-style" style={{marginLeft:"300px"}}>
         <Image.PreviewGroup className="meAbout-style">
           <Image width={300} src={foto} className="meAbout-style" />
         </Image.PreviewGroup>
-        <div style={{ marginRight:"500px" }}>
+        <div style={{ marginRight:"300px" }}>
          
           <div className="about-grid-style">
             <ul>
