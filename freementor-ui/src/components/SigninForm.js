@@ -1,47 +1,29 @@
-import React from "react";
-
-import { Form, Input, Button, Checkbox,Col,Row } from 'antd';
+import React from 'react';
+import { Form, Input, Button, Checkbox } from 'antd';
+import {Link} from "react-router-dom";
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
-import { Link } from "react-router-dom";
-const SignIn = () => {
+
+const SigninForm = () => {
   const onFinish = (values) => {
     console.log('Received values of form: ', values);
   };
 
   return (
-    <div style={{ 
-      width: 700,
-      padding: 30}}>
-
     <Form
       name="normal_login"
       className="login-form"
-      initialValues={{
-        remember: true,
-      }}
+      initialValues={{ remember: true }}
       onFinish={onFinish}
     >
-      <Row >
-          <Col md="4">
       <Form.Item
         name="username"
-        rules={[
-          {
-            required: true,
-            message: 'Please input your Username!',
-          },
-        ]}
+        rules={[{ required: true, message: 'Please input your Username!' }]}
       >
         <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
       </Form.Item>
       <Form.Item
         name="password"
-        rules={[
-          {
-            required: true,
-            message: 'Please input your Password!',
-          },
-        ]}
+        rules={[{ required: true, message: 'Please input your Password!' }]}
       >
         <Input
           prefix={<LockOutlined className="site-form-item-icon" />}
@@ -60,15 +42,16 @@ const SignIn = () => {
       </Form.Item>
 
       <Form.Item>
+          <Link to="/dashboard">
         <Button type="primary" htmlType="submit" className="login-form-button">
           Log in
         </Button>
-        Or <Link to="/signup/">Register Now!</Link>
+          
+          </Link>
+        Or <a href="">register now!</a>
       </Form.Item>
-      </Col>
-      </Row>
     </Form>
-    </div>
   );
 };
-export default SignIn;
+
+export default SigninForm;

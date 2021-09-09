@@ -1,21 +1,21 @@
-import React from "react";
-import { Switch,Route } from "react-router-dom";
-import Abouts from "../views/about";
-import Contacts from "../views/contact";
+import React from 'react';
+import {Switch,Route} from "react-router-dom";
+
 import Home from "../views/home";
-import Signup from "../views/signup";
-import Page from "../views/page";
+import AllMentors from "../views/AllMentors";
+import Dashboard from "../views/Dashboard";
+import DashMentors from "../views/dashboard/Mentors";
 
-const Index= ()=>{
-
+const Index=()=>{
     return(
-
         <Switch>
-            <Route component={Page} path={["/page", "/"]}/>
-            <Route component={Signup} path="/signup"/>  
-        <Route component={Contacts} path="/contact"/> 
-         <Route component={Abouts} path="/about"/>  
-         <Route component={Home} path={["/home"]}/>
+        <Route component={AllMentors} path="/allmentors"/>
+
+        <Route component={Dashboard} path="/dashboard"/>
+        <Route component={DashMentors} path="/dashmentors"/>
+
+
+        <Route component={Home} path={["/home","/"]} />
 
         </Switch>
     )
