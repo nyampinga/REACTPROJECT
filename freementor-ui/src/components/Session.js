@@ -31,7 +31,7 @@ const Session =()=>{
           </Form.Item>
           <Form.Item label="Select Mentor">
             <Select>
-              <Select.Option value="demo">Demo</Select.Option>
+              <Select.Option value="demo">Mentor</Select.Option>
             </Select>
           </Form.Item>
           <Form.Item label="Time To Start">
@@ -41,7 +41,7 @@ const Session =()=>{
             <DatePicker />
           </Form.Item>
           <Form.Item label="Button">
-            <Button>Button</Button>
+            <Button>Submit</Button>
           </Form.Item>
         </Form>
     )
