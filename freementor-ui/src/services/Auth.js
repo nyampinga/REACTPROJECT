@@ -1,9 +1,12 @@
 import axios from "axios";
 
-const FREEMENTOR_API_AUTH= "https://freementor.herokuapp.com/freementor/v1/user";
+const FREEMENTOR_API_AUTH= "https://freemantar.herokuapp.com/freemantor/v1/user";
+
+const token = localStorage.getItem("freeMentor_token");
 const config={
     headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'x-auth-token': token
     }
 }
 class AuthApi{
@@ -14,7 +17,9 @@ class AuthApi{
             const res= await axios.post(FREEMENTOR_API_AUTH+"/signin",data,config);
             return res;
         } catch (error) {
-            console.log(error);
+            console.log(  error.response);
+
+            return error.response;
         }
 
     }
@@ -26,9 +31,34 @@ class AuthApi{
             return res;
         } catch (error) {
             console.log(error);
+            return error.response;
         }
 
     }
+
+
+        
+    async getAllMentors(){
+        try{
+const res = await axios.get(FREEMENTOR_API_AUTH+"/all/mentors",config)
+return res;
+        }catch(error){
+
+            return error.response;
+            
+       
+        }
+
+    }
+    async updateOneSession(id){
+        try {
+            const res = await axios.patch(FREEMENTOR_API_AUTH+"/"+id,config);
+            return res;
+        } catch (error) {
+            return error.response;
+        }
+    }
+
 
 
 }
