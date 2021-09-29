@@ -1,103 +1,53 @@
-import React, { useState } from 'react';
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Link,useHistory } from "react-router-dom";
 import "./index.css";
-import { Form, Input, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete,Container } from 'antd';
+import Auth from "../services/Auth";
+import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import { Form, Input, notification, Select, Row, Col, Button, InputNumber } from 'antd';
 const { Option } = Select;
-const residences = [
-  {
-    value: 'Rwanda',
-    label: 'Rwanda',
-    
-  },
-  {
-    value: 'Tanzania',
-    label: 'Tanzania',
-   
-  },
-];
-const formItemLayout = {
-  labelCol: {
-    xs: {
-      span: 24,
-    },
-    sm: {
-      span: 8,
-    },
-  },
-  wrapperCol: {
-    xs: {
-      span: 24,
-    },
-    sm: {
-      span: 16,
-    },
-  },
-};
-const tailFormItemLayout = {
-  wrapperCol: {
-    xs: {
-      span: 24,
-      offset: 0,
-    },
-    sm: {
-      span: 16,
-      offset: 8,
-    },
-  },
-};
+
+
 
 const RegistrationForm = () => {
-  const [form] = Form.useForm();
 
-  const onFinish = (values) => {
-    console.log('Received values of form: ', values);
+  const history = useHistory();
+
+  const onFinish = async(values) => {
+  console.log('Received values of form: ', values);
+  const response= await Auth.signUp(values);
+  
+  console.log("response:" ,response);
+  if(!response){
+    return notification.error({message:"request failed,Network error"})
+  
+  }
+  if(response.data.status===200){
+notification.success({message:response.data.message});
+localStorage.setItem("freeMentor_token",response.data.token);
+    return history.push("/dashboard")
+  }
+  else{
+return notification.error({message:response.data.message})
+  }
+    // console.log('Received values of form: ', values);
   };
 
-  const prefixSelector = (
-    <Form.Item name="prefix" noStyle>
-      <Select
-        style={{
-          width: 70,
-        }}
-      >
-        <Option value="86">+86</Option>
-        <Option value="87">+87</Option>
-      </Select>
-    </Form.Item>
-  );
-  const [autoCompleteResult, setAutoCompleteResult] = useState([]);
-
-  const onWebsiteChange = (value) => {
-    if (!value) {
-      setAutoCompleteResult([]);
-    } else {
-      setAutoCompleteResult(['.com', '.org', '.net'].map((domain) => `${value}${domain}`));
-    }
-  };
-
-  const websiteOptions = autoCompleteResult.map((website) => ({
-    label: website,
-    value: website,
-  }));
   return (
    
     <Form 
-      {...formItemLayout}
-      form={form}
-      name="register"
+    name="normal_login"
+      className="login-form"
+      initialValues={{ remember: true }}
       onFinish={onFinish}
-      initialValues={{
-        
-      }}
       scrollToFirstError
     >
   
         <Row>
-          <Col md="4">
+          <Col md="6">
 
           <Form.Item style={{ marginBottom: 0 }}>
         <Form.Item
-         name="firstname"
+         name="firstName"
          label="FirstName"
          style={{ display: 'inline-block', width: 'calc(50% - 8px)' }}
 
@@ -110,11 +60,10 @@ const RegistrationForm = () => {
            },
          ]}
         >
-          <Input />
-        
+          <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Firstname" />
         </Form.Item>
         <Form.Item
-          name="lastname"
+          name="lastName"
           label="LastName"
           style={{ display: 'inline-block', width: 'calc(50% - 8px)', margin: '0 8px' }}
           tooltip="What do you want others to call you?"
@@ -126,7 +75,7 @@ const RegistrationForm = () => {
             },
           ]}
         >
-          <Input />
+         <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Lastname" />
           
         </Form.Item>
       </Form.Item>
@@ -146,92 +95,32 @@ const RegistrationForm = () => {
           },
         ]}
       >
-        <Input />
+       <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="abcd@gmail.com" />
+      
         </Form.Item>
         <Form.Item
-          name="phone"
-          label="Phone Number"
-          style={{ display: 'inline-block', width: 'calc(50% - 8px)', margin: '0 8px' }}
-          rules={[
-            {
-              required: true,
-              message: 'Please input your phone number!',
-            },
-          ]}
-        >
-          <Input
-            addonBefore={prefixSelector}
-            style={{
-              width: '100%',
-            }}
-          />
+        name="password"
+        label="Password"
+        style={{  display: 'inline-block', width: 'calc(50% - 8px)', margin: '0 8px'  }}
+        rules={[{ required: true, message: 'Please input your Password!' }]}
+      >
+        <Input.Password
+        />
         </Form.Item>
+        </Form.Item>
+        <Form.Item style={{ marginBottom: 0 }}>
+       
+        <Form.Item
+        name="phone"
+        label="Phone Number"
+        style={{ display: 'inline-block', width: 'calc(50% - 8px)' }}
+        rules={[{ required: true, message: 'Please input your phone number!',max:10 }]}
+      >
+        <Input  style={{ width: '100%' }} />
       </Form.Item>
 
-          <Form.Item style={{ marginBottom: 0 }}>
-        <Form.Item
-          name="Password"
-          rules={[{ required: true }]}
-          style={{ display: 'inline-block', width: 'calc(50% - 8px)' }}
-          name="password"
-          label="Password"
-          rules={[
-            {
-              required: true,
-              message: 'Please input your password!',
-            },
-          ]}
-          hasFeedback
-        >
-          <Input.Password />
-        
-        </Form.Item>
-        <Form.Item
-          name="repassword"
-          rules={[{ required: true }]}
-          style={{ display: 'inline-block', width: 'calc(50% - 8px)', margin: '0 8px' }}
-          name="confirm"
-          label="Re-Password"
-          dependencies={['password']}
-          hasFeedback
-          rules={[
-            {
-              required: true,
-              message: 'Please confirm your password!',
-            },
-            ({ getFieldValue }) => ({
-              validator(_, value) {
-                if (!value || getFieldValue('password') === value) {
-                  return Promise.resolve();
-                }
-  
-                return Promise.reject(new Error('The two passwords that you entered do not match!'));
-              },
-            }),
-          ]}
-        >
-          <Input.Password />
-        </Form.Item>
-      </Form.Item>
-  
-      <Form.Item style={{ marginBottom: 0 }}>
-          <Form.Item 
-        style={{ display: 'inline-block', width: 'calc(50% - 8px)' }}
-        name="residence"
-        label="Residence"
-        rules={[
-          {
-            type: 'array',
-            required: true,
-            message: 'Please select your habitual residence!',
-          },
-        ]}
-      >
-        <Cascader options={residences} />
-       
-        </Form.Item>
-        <Form.Item
-          style={{ display: 'inline-block', width: 'calc(50% - 8px)', margin: '0 8px' }}
+          <Form.Item
+          style={{  display: 'inline-block', width: 'calc(50% - 8px)', margin: '0 8px'  }}
           name="gender"
           label="Gender"
           rules={[
@@ -242,32 +131,19 @@ const RegistrationForm = () => {
           ]}
         >
           <Select placeholder="select your gender">
-            <Option value="male">Male</Option>
-            <Option value="female">Female</Option>
-            <Option value="other">Other</Option>
+            <Option value="Male">Male</Option>
+            <Option value="Female">Female</Option>
+            
           </Select>
          
         </Form.Item>
       </Form.Item>
-      <Form.Item style={{ marginBottom: 0 }}>
-      <Form.Item
-        name="agreement"
-        valuePropName="checked"
-        rules={[
-          {
-            validator: (_, value) =>
-              value ? Promise.resolve() : Promise.reject(new Error('Should accept agreement')),
-          },
-        ]}
-        {...tailFormItemLayout}
-      >
-        <Checkbox>
-          I have read the <a href="">agreement</a>
-        </Checkbox>
+      <Form.Item name="age" label="Age" rules={[{ type: 'number', min: 0, max: 99 }]}>
+        <InputNumber />
       </Form.Item>
-      </Form.Item>
-      <Form.Item style={{ marginBottom: 0 }}>
-      <Form.Item {...tailFormItemLayout}>
+    
+     <Form.Item style={{ marginBottom: 0 }}>
+      <Form.Item>
         <Button type="primary" htmlType="submit">
           Register
         </Button>

@@ -10,15 +10,17 @@ const SigninForm = () => {
   const response= await AuthApi.login(values);
   console.log("response:" ,response);
   if(!response){
-    return notification.error({message:"Invalid credentials, Please try again!!"})
+    return notification.error({message:"request failed,Network error"})
   
   }
   if(response.data.status===200){
-
-    return history.push("/dashboard")
+notification.success({message:response.data.message});
+localStorage.setItem("freeMentor_token",response.data.token);
+     history.push("/dashboard")
+    return window.location.reload();
   }
   else{
-return notification.error({message:"Invalid credentials, Please try again!!"})
+return notification.error({message:response.data.message})
   }
     // console.log('Received values of form: ', values);
   };
@@ -31,10 +33,10 @@ return notification.error({message:"Invalid credentials, Please try again!!"})
       onFinish={onFinish}
     >
       <Form.Item
-        name="username"
-        rules={[{ required: true, message: 'Please input your Username!' }]}
+        name="email"
+        rules={[{ required: true, message: 'Please input your Email!' }]}
       >
-        <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
+        <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Email" />
       </Form.Item>
       <Form.Item
         name="password"
@@ -57,12 +59,12 @@ return notification.error({message:"Invalid credentials, Please try again!!"})
       </Form.Item>
 
       <Form.Item>
-          <Link to="/dashboard">
+        
         <Button type="primary" htmlType="submit" className="login-form-button">
           Log in
         </Button>
-          </Link>
-        Or <Link to="/signup/">Register Now!</Link>
+        
+        Or <Link to="/signup">Register Now!</Link>
       </Form.Item>
     </Form>
   );
